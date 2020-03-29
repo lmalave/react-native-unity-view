@@ -3,7 +3,9 @@
     package="com.reactnative.unity.view">
 
     <application>
-
+      <activity android:name="com.reactnative.unity.view.MainUnityActivity" android:screenOrientation="fullSensor" android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale|layoutDirection|density" android:hardwareAccelerated="false" android:process=":Unity"
+                android:label="@string/app_name">
+      </activity>
     </application>
 
 </manifest>

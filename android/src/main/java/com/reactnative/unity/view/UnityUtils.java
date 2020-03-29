@@ -7,6 +7,14 @@ import android.os.Build;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 
+import android.content.Intent;
+import android.graphics.Color;
+import android.os.Bundle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import android.view.View;
+import android.widget.Toast;
+
 import com.unity3d.player.UnityPlayer;
 
 import java.util.concurrent.CopyOnWriteArraySet;
@@ -25,6 +33,7 @@ public class UnityUtils {
     private static UnityPlayer unityPlayer;
     private static boolean _isUnityReady;
     private static boolean _isUnityPaused;
+    private static boolean isUnityLoaded;
 
     private static final CopyOnWriteArraySet<UnityEventListener> mUnityEventListeners =
             new CopyOnWriteArraySet<>();
@@ -44,29 +53,45 @@ public class UnityUtils {
         return _isUnityPaused;
     }
 
+        public static void loadUnity(Activity mainActivity) {
+        System.out.println("UUUUUUUU in UnityUtils.loadUnity, mainActivity: " + mainActivity);
+            isUnityLoaded = true;
+            Intent intent = new Intent(mainActivity, MainUnityActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            mainActivity.startActivityForResult(intent, 1);
+        }
+
     public static void createPlayer(final Activity activity, final CreateCallback callback) {
+        System.out.println("UUUUUUUU in UnityUtils.createPlayer, activity: " + activity);
         if (unityPlayer != null) {
             callback.onReady();
             return;
         }
+        System.out.println("UUUUUUUU in UnityUtils.createPlayer, about to call runOnURThread on activity: " + activity);
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                activity.getWindow().setFormat(PixelFormat.RGBA_8888);
+           System.out.println("UUUUUUUU in UnityUtils.createPlayer, in runOnUiThread Runnable.run()");
+              System.out.println("UUUUUUUU in UnityUtils.createPlayer, in runOnUiThread Runnable.run(), about to start MainUnityActivity");
+              loadUnity(activity);
+               System.out.println("UUUUUUUU in UnityUtils.createPlayer, in runOnUiThread Runnable.run(), started  MainUnityActivity ");
+           /* activity.getWindow().setFormat(PixelFormat.RGBA_8888);
                 int flag = activity.getWindow().getAttributes().flags;
                 boolean fullScreen = false;
                 if((flag & WindowManager.LayoutParams.FLAG_FULLSCREEN) == WindowManager.LayoutParams.FLAG_FULLSCREEN) {
                     fullScreen = true;
                 }
 
-                unityPlayer = new UnityPlayer(activity);
-
+              System.out.println("UUUUUUUU in UnityUtils.createPlayer, in runOnUiThread Runnable.run(), about to create new UnityPlayer");
+               unityPlayer = new UnityPlayer(activity);
+              System.out.println("UUUUUUUU in UnityUtils.createPlayer, in runOnUiThread Runnable.run(), created  new UnityPlayer: " + unityPlayer);
+*/
                 try {
                     // wait a moument. fix unity cannot start when startup.
                     Thread.sleep( 1000 );
                 } catch (Exception e) {
                 }
-
+/*
                 // start unity
                 addUnityViewToBackground();
                 unityPlayer.windowFocusChanged(true);
@@ -79,6 +104,7 @@ public class UnityUtils {
                     activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
                 }
                 _isUnityReady = true;
+                */
                 callback.onReady();
             }
         });
