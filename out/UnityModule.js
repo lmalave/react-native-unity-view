@@ -70,10 +70,12 @@ var UnityModuleImpl = /** @class */ (function () {
         this.createListeners();
     }
     UnityModuleImpl.prototype.createListeners = function () {
+      console.log("UUUUUUUUUU In UnityModuleImpl.createListeners");
         var _this = this;
         this.stringListeners = {};
         this.unityMessageListeners = {};
-        react_native_1.DeviceEventEmitter.addListener('onUnityMessage', function (message) {
+      console.log("UUUUUUUUUU In UnityModuleImpl.createListeners, about to call addListener on: " + react_native_1.DeviceEventEmitter);
+      react_native_1.DeviceEventEmitter.addListener('onUnityMessage', function (message) {
             var result = handleMessage(message);
             if (result instanceof MessageHandler_1["default"]) {
                 Object.values(_this.unityMessageListeners).forEach(function (listener) {
@@ -92,23 +94,23 @@ var UnityModuleImpl = /** @class */ (function () {
         return this.hid;
     };
     UnityModuleImpl.prototype.isReady = function () {
-        return __awaiter(this, void 0, void 0, function () {
+      console.log("UUUUUUUUUU In UnityModuleImpl.isReady");
+      return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                //  console.log("UUUUUUUUUU In UnityModuleImpl.isReady");
                 return [2 /*return*/, UnityNativeModule.isReady()];
             });
         });
     };
     UnityModuleImpl.prototype.createUnity = function () {
-        return __awaiter(this, void 0, void 0, function () {
+      console.log("UUUUUUUUUU In UnityModuleImpl.createUnity");
+      return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                // console.log("UUUUUUUUUU In UnityModuleImpl.createUnity");
                 return [2 /*return*/, UnityNativeModule.createUnity()];
             });
         });
     };
     UnityModuleImpl.prototype.postMessageToUnityManager = function (message) {
-        // console.log("UUUUUUUUUU In UnityModuleImpl.postMessageToUnityManager, message: " + message);
+        console.log("UUUUUUUUUU In UnityModuleImpl.postMessageToUnityManager, message: " + message);
         if (typeof message === 'string') {
             this.postMessage('UnityMessageManager', 'onMessage', message);
         }
@@ -126,7 +128,7 @@ var UnityModuleImpl = /** @class */ (function () {
         }
     };
     UnityModuleImpl.prototype.postMessage = function (gameObject, methodName, message) {
-        //  console.log("UUUUUUUUUU In UnityModuleImpl.postMessage, message: " + message);
+        console.log("UUUUUUUUUU In UnityModuleImpl.postMessage, message: " + message);
         UnityNativeModule.postMessage(gameObject, methodName, message);
     };
     UnityModuleImpl.prototype.pause = function () {
@@ -136,18 +138,21 @@ var UnityModuleImpl = /** @class */ (function () {
         UnityNativeModule.resume();
     };
     UnityModuleImpl.prototype.addMessageListener = function (listener) {
-        var id = this.getHandleId();
+      console.log("UUUUUUUUUU In UnityModuleImpl.addMessageListener");
+      var id = this.getHandleId();
         this.stringListeners[id] = listener;
         this.unityMessageListeners[id] = listener;
         return id;
     };
     UnityModuleImpl.prototype.addStringMessageListener = function (listener) {
+      console.log("UUUUUUUUUU In UnityModuleImpl.addStringMessageListener");
         var id = this.getHandleId();
         this.stringListeners[id] = listener;
         return id;
     };
     UnityModuleImpl.prototype.addUnityMessageListener = function (listener) {
-        var id = this.getHandleId();
+      console.log("UUUUUUUUUU In UnityModuleImpl.addUnityMessageListener");
+      var id = this.getHandleId();
         this.unityMessageListeners[id] = listener;
         return id;
     };

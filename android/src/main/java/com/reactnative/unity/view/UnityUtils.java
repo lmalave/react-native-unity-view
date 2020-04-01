@@ -35,7 +35,7 @@ public class UnityUtils {
     private static boolean _isUnityPaused;
     private static boolean isUnityLoaded;
 
-    private static final CopyOnWriteArraySet<UnityEventListener> mUnityEventListeners =
+    private static CopyOnWriteArraySet<UnityEventListener> mUnityEventListeners =
             new CopyOnWriteArraySet<>();
 
     public static UnityPlayer getPlayer() {
@@ -111,6 +111,8 @@ public class UnityUtils {
     }
 
     public static void postMessage(String gameObject, String methodName, String message) {
+        System.out.println("UUUUUUUUU In UnityUtils.postMessage, _isUnityReady: " + _isUnityReady);
+         System.out.println("UUUUUUUU in UnityUtils.postMessage, mUnityEventListeners: " + mUnityEventListeners);
         if (!_isUnityReady) {
             return;
         }
@@ -118,14 +120,16 @@ public class UnityUtils {
     }
 
     public static void pause() {
-        if (unityPlayer != null) {
+          System.out.println("UUUUUUUU in UnityUtils.pause, mUnityEventListeners: " + mUnityEventListeners);
+       if (unityPlayer != null) {
             unityPlayer.pause();
             _isUnityPaused = true;
         }
     }
 
     public static void resume() {
-        if (unityPlayer != null) {
+          System.out.println("UUUUUUUU in UnityUtils.resume, mUnityEventListeners: " + mUnityEventListeners);
+       if (unityPlayer != null) {
             unityPlayer.resume();
             _isUnityPaused = false;
         }
@@ -135,19 +139,26 @@ public class UnityUtils {
      * Invoke by unity C#
      */
     public static void onUnityMessage(String message) {
-        for (UnityEventListener listener : mUnityEventListeners) {
+         System.out.println("UUUUUUUU in UnityUtils.onUnityMessage, message: " + message);
+         System.out.println("UUUUUUUU in UnityUtils.onUnityMessage, mUnityEventListeners: " + mUnityEventListeners);
+          System.out.println("UUUUUUUU in UnityUtils.onUnityMessage, UnityNativeModule instance: " + UnityNativeModule.instance);
+     for (UnityEventListener listener : mUnityEventListeners) {
             try {
-                listener.onMessage(message);
+          System.out.println("UUUUUUUU in UnityUtils.onUnityMessage, about to call onMessage on listener: " + listener);
+               listener.onMessage(message);
             } catch (Exception e) {
             }
         }
     }
 
     public static void addUnityEventListener(UnityEventListener listener) {
-        mUnityEventListeners.add(listener);
-    }
+       System.out.println("UUUUUUUU in UnityUtils.addUnityEventListener, listener: " + listener);
+       mUnityEventListeners.add(listener);
+       System.out.println("UUUUUUUU in UnityUtils.addUnityEventListener, added listener: " + mUnityEventListeners);
+   }
 
     public static void removeUnityEventListener(UnityEventListener listener) {
+       System.out.println("UUUUUUUU in UnityUtils.removeUnityEventListener, listener: " + listener);
         mUnityEventListeners.remove(listener);
     }
 

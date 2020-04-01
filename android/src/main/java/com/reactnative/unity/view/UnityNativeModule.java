@@ -9,9 +9,13 @@ import com.facebook.react.modules.core.DeviceEventManagerModule;
 
 public class UnityNativeModule extends ReactContextBaseJavaModule implements UnityEventListener {
 
+    public static UnityNativeModule instance;
+
     public UnityNativeModule(ReactApplicationContext reactContext) {
         super(reactContext);
+        System.out.println("in UnityNativeModule constructor, reactContext: " + reactContext);
         UnityUtils.addUnityEventListener(this);
+        instance = this;
     }
 
     @Override
@@ -36,6 +40,7 @@ public class UnityNativeModule extends ReactContextBaseJavaModule implements Uni
 
     @ReactMethod
     public void postMessage(String gameObject, String methodName, String message) {
+        System.out.println("UUUUUUUUUUUU In UnityNativeModule.postMessage, message: " + message);
         UnityUtils.postMessage(gameObject, methodName, message);
     }
 
@@ -51,7 +56,9 @@ public class UnityNativeModule extends ReactContextBaseJavaModule implements Uni
 
     @Override
     public void onMessage(String message) {
+        System.out.println("UUUUUUUUUUUU In UnityNativeModule.onMessage, message: " + message);
         ReactContext context = getReactApplicationContext();
+        System.out.println("UUUUUUUUUUUU In UnityNativeModule.onMessage, ReactContext: " + context);
         context.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("onUnityMessage", message);
     }
 }

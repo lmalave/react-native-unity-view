@@ -7,6 +7,7 @@ var MessageHandler = /** @class */ (function () {
     function MessageHandler() {
     }
     MessageHandler.deserialize = function (message) {
+        console.log('UUUUUUUUUUUU In MessageHandler.deserialize, message: ' + message);
         if (!MessageHandler.isUnityMessage(message)) {
             throw new Error("\"" + message + "\" is't an UnityMessage.");
         }
