@@ -16,16 +16,19 @@ public class UnityView extends FrameLayout {
 
     protected UnityView(Context context) {
         super(context);
+        System.out.println("UUUUUUUU in UnityView constructor, context: " + context);
     }
 
     public void setUnityPlayer(UnityPlayer player) {
         this.view = player;
+        System.out.println("UUUUUUUU in UnityView.setUnityPlayer, player: " + player);
         UnityUtils.addUnityViewToGroup(this);
     }
 
     @Override
     public void onWindowFocusChanged(boolean hasWindowFocus) {
         super.onWindowFocusChanged(hasWindowFocus);
+        System.out.println("UUUUUUUU in UnityView.onWindowFocusChanged, hasWindowFocus: " + hasWindowFocus);
         if (view != null) {
             view.windowFocusChanged(hasWindowFocus);
         }
@@ -34,6 +37,7 @@ public class UnityView extends FrameLayout {
     @Override
     protected void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
+        System.out.println("UUUUUUUU in UnityView.onConfigurationChanged, hasWindowFocus: " + newConfig);
         if (view != null) {
             view.configurationChanged(newConfig);
         }
@@ -44,5 +48,6 @@ public class UnityView extends FrameLayout {
         // todo: fix more than one unity view, don't add to background.
         // UnityUtils.addUnityViewToBackground();
         super.onDetachedFromWindow();
+        System.out.println("UUUUUUUU in UnityView.onDetachedFromWindow");
     }
 }

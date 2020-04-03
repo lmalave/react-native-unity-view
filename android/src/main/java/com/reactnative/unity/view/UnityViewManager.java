@@ -24,7 +24,8 @@ public class UnityViewManager extends SimpleViewManager<UnityView> implements Li
 
     UnityViewManager(ReactApplicationContext context) {
         super();
-        this.context = context;
+           System.out.println("UUUUUUUU in UnityViewManager constructor, context: " + context);
+     this.context = context;
         context.addLifecycleEventListener(this);
     }
 
@@ -35,7 +36,8 @@ public class UnityViewManager extends SimpleViewManager<UnityView> implements Li
 
     @Override
     protected UnityView createViewInstance(ThemedReactContext reactContext) {
-        final UnityView view = new UnityView(reactContext);
+            System.out.println("UUUUUUUU in UnityViewManager.createViewInstance, reactContext: " + reactContext);
+       final UnityView view = new UnityView(reactContext);
         view.addOnAttachStateChangeListener(this);
 
         if (UnityUtils.getPlayer() != null) {
@@ -55,10 +57,12 @@ public class UnityViewManager extends SimpleViewManager<UnityView> implements Li
     public void onDropViewInstance(UnityView view) {
         view.removeOnAttachStateChangeListener(this);
         super.onDropViewInstance(view);
-    }
+        System.out.println("UUUUUUUU in UnityViewManager.onDropViewInstance, view: " + view);
+   }
 
     @Override
     public void onHostResume() {
+        System.out.println("UUUUUUUU in UnityViewManager.onHostResume");
         if (UnityUtils.isUnityReady()) {
             UnityUtils.getPlayer().resume();
             restoreUnityUserState();
@@ -67,6 +71,7 @@ public class UnityViewManager extends SimpleViewManager<UnityView> implements Li
 
     @Override
     public void onHostPause() {
+        System.out.println("UUUUUUUU in UnityViewManager.onHostPause");
         if (UnityUtils.isUnityReady()) {
             // Don't use UnityUtils.pause()
             UnityUtils.getPlayer().pause();
@@ -75,13 +80,15 @@ public class UnityViewManager extends SimpleViewManager<UnityView> implements Li
 
     @Override
     public void onHostDestroy() {
-        if (UnityUtils.isUnityReady()) {
+         System.out.println("UUUUUUUU in UnityViewManager.onHostDestroy");
+       if (UnityUtils.isUnityReady()) {
             UnityUtils.getPlayer().quit();
         }
     }
 
     private void restoreUnityUserState() {
-        // restore the unity player state
+          System.out.println("UUUUUUUU in UnityViewManager.restoreUnityUserState");
+       // restore the unity player state
         if (UnityUtils.isUnityPaused()) {
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
@@ -97,11 +104,12 @@ public class UnityViewManager extends SimpleViewManager<UnityView> implements Li
 
     @Override
     public void onViewAttachedToWindow(View v) {
+          System.out.println("UUUUUUUU in UnityViewManager.onViewAttachedToWindow, view: " + v);
         restoreUnityUserState();
     }
 
     @Override
     public void onViewDetachedFromWindow(View v) {
-
+          System.out.println("UUUUUUUU in UnityViewManager.onViewDetachedFromWindow, view: " + v);
     }
 }

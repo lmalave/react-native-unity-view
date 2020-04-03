@@ -8,18 +8,20 @@ public abstract class OverrideUnityActivity extends UnityPlayerActivity
 {
     public static OverrideUnityActivity instance = null;
 
-    abstract protected void showMainActivity(String setToColor);
+    abstract protected void showMainActivity();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        System.out.println("UUUUUUUUU in OverrideUnityActivity.onCreate, savedInstanceState: " + savedInstanceState);
         instance = this;
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        instance = null;
+        System.out.println("UUUUUUUUU in OverrideUnityActivity.onDestroy");
+       instance = null;
     }
 }

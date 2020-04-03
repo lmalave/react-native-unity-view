@@ -18,6 +18,7 @@ public class UnityViewPackage implements ReactPackage {
 
     @Override
     public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
+          System.out.println("UUUUUUUU in UnityViewPackage.createViewManagers, reactContext: " + reactContext);
         List<ViewManager> viewManagers = new ArrayList<>();
         viewManagers.add(new UnityViewManager(reactContext));
         return viewManagers;
@@ -25,7 +26,8 @@ public class UnityViewPackage implements ReactPackage {
 
     @Override
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
-        List<NativeModule> modules = new ArrayList<>();
+           System.out.println("UUUUUUUU in UnityViewPackage.createNativeModules, reactContext: " + reactContext);
+       List<NativeModule> modules = new ArrayList<>();
         modules.add(new UnityNativeModule(reactContext));
         return modules;
     }

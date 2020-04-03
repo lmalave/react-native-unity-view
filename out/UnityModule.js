@@ -45,6 +45,7 @@ function generateId() {
 }
 var waitCallbackMessageMap = {};
 function handleMessage(message) {
+  console.log("UUUUUUUUUU In UnityNativeModule.handleMessage, message: " + message);
     if (MessageHandler_1["default"].isUnityMessage(message)) {
         var handler = MessageHandler_1["default"].deserialize(message);
         if (handler.seq === 'end') {
@@ -132,9 +133,11 @@ var UnityModuleImpl = /** @class */ (function () {
         UnityNativeModule.postMessage(gameObject, methodName, message);
     };
     UnityModuleImpl.prototype.pause = function () {
+      console.log("UUUUUUUUUU In UnityModuleImpl.pause");
         UnityNativeModule.pause();
     };
     UnityModuleImpl.prototype.resume = function () {
+      console.log("UUUUUUUUUU In UnityModuleImpl.resume");
         UnityNativeModule.resume();
     };
     UnityModuleImpl.prototype.addMessageListener = function (listener) {
@@ -157,6 +160,7 @@ var UnityModuleImpl = /** @class */ (function () {
         return id;
     };
     UnityModuleImpl.prototype.removeMessageListener = function (handleId) {
+      console.log("UUUUUUUUUU In UnityModuleImpl.removeMessageListener");
         if (this.unityMessageListeners[handleId]) {
             delete this.unityMessageListeners[handleId];
         }

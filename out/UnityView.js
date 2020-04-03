@@ -53,19 +53,22 @@ var UnityView = /** @class */ (function (_super) {
         });
     };
     UnityView.prototype.componentWillUnmount = function () {
-        UnityModule_1.UnityModule.removeMessageListener(this.handle);
+      console.log("UUUUUUUUUU In UnityView.componentWillUnmount, UnityModule: " + UnityModule_1);
+      UnityModule_1.UnityModule.removeMessageListener(this.handle);
     };
     /**
      * [Deprecated] Use `UnityModule.pause` instead.
      */
     UnityView.prototype.pause = function () {
-        UnityModule_1.UnityModule.pause();
+      console.log("UUUUUUUUUU In UnityView.pause");
+      UnityModule_1.UnityModule.pause();
     };
     ;
     /**
      * [Deprecated] Use `UnityModule.resume` instead.
      */
     UnityView.prototype.resume = function () {
+      console.log("UUUUUUUUUU In UnityView.resume");
         UnityModule_1.UnityModule.resume();
     };
     ;
@@ -87,6 +90,7 @@ var UnityView = /** @class */ (function (_super) {
     };
     ;
     UnityView.prototype.render = function () {
+      console.log("UUUUUUUUUU In UnityView.render");
         var _a = this.props, onUnityMessage = _a.onUnityMessage, onMessage = _a.onMessage, props = __rest(_a, ["onUnityMessage", "onMessage"]);
         return (React.createElement(react_native_1.View, __assign({}, props),
             React.createElement(NativeUnityView, { style: { position: 'absolute', left: 0, right: 0, top: 0, bottom: 0 }, onUnityMessage: onUnityMessage, onMessage: onMessage }),

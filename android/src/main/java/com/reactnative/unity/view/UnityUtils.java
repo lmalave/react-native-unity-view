@@ -31,6 +31,7 @@ public class UnityUtils {
     }
 
     private static UnityPlayer unityPlayer;
+    private static Activity mainActivity;
     private static boolean _isUnityReady;
     private static boolean _isUnityPaused;
     private static boolean isUnityLoaded;
@@ -45,6 +46,14 @@ public class UnityUtils {
         return unityPlayer;
     }
 
+    public static Activity getMainActivity() {
+        return mainActivity;
+    }
+
+    public static void SetPlayer(UnityPlayer player) {
+       unityPlayer = player;
+    }
+
     public static boolean isUnityReady() {
         return _isUnityReady;
     }
@@ -53,13 +62,15 @@ public class UnityUtils {
         return _isUnityPaused;
     }
 
-        public static void loadUnity(Activity mainActivity) {
+    public static void loadUnity(Activity parentActivity) {
+        mainActivity = parentActivity;
         System.out.println("UUUUUUUU in UnityUtils.loadUnity, mainActivity: " + mainActivity);
-            isUnityLoaded = true;
-            Intent intent = new Intent(mainActivity, MainUnityActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-            mainActivity.startActivityForResult(intent, 1);
-        }
+        isUnityLoaded = true;
+        Intent intent = new Intent(mainActivity, MainUnityActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        System.out.println("UUUUUUUU in UnityUtils.loadUnity, about to call startActivityForResult for mainActivity: " + mainActivity);
+        mainActivity.startActivityForResult(intent, 1);
+    }
 
     public static void createPlayer(final Activity activity, final CreateCallback callback) {
         System.out.println("UUUUUUUU in UnityUtils.createPlayer, activity: " + activity);
@@ -103,20 +114,23 @@ public class UnityUtils {
                     activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
                     activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
                 }
-                _isUnityReady = true;
                 */
-                callback.onReady();
+                //  _isUnityReady = true;
+               callback.onReady();
             }
         });
     }
 
     public static void postMessage(String gameObject, String methodName, String message) {
         System.out.println("UUUUUUUUU In UnityUtils.postMessage, _isUnityReady: " + _isUnityReady);
-         System.out.println("UUUUUUUU in UnityUtils.postMessage, mUnityEventListeners: " + mUnityEventListeners);
-        if (!_isUnityReady) {
+         System.out.println("UUUUUUUUU In UnityUtils.postMessage, unityPlayer: " + unityPlayer);
+        System.out.println("UUUUUUUU in UnityUtils.postMessage, mUnityEventListeners: " + mUnityEventListeners);
+      /*  if (!_isUnityReady) {
             return;
+        } */
+       if (unityPlayer != null) {
+         unityPlayer.UnitySendMessage(gameObject, methodName, message);
         }
-        UnityPlayer.UnitySendMessage(gameObject, methodName, message);
     }
 
     public static void pause() {
@@ -163,6 +177,7 @@ public class UnityUtils {
     }
 
     public static void addUnityViewToBackground() {
+       System.out.println("UUUUUUUU in UnityUtils.addUnityViewToBackground, unityPlayer: " + unityPlayer);
         if (unityPlayer == null) {
             return;
         }
@@ -178,7 +193,8 @@ public class UnityUtils {
     }
 
     public static void addUnityViewToGroup(ViewGroup group) {
-        if (unityPlayer == null) {
+        System.out.println("UUUUUUUU in UnityUtils.addUnityViewToGroup, unityPlayer: " + unityPlayer);
+       if (unityPlayer == null) {
             return;
         }
         if (unityPlayer.getParent() != null) {

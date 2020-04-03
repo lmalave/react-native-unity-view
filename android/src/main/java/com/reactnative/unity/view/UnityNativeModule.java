@@ -25,12 +25,14 @@ public class UnityNativeModule extends ReactContextBaseJavaModule implements Uni
 
     @ReactMethod
     public void isReady(Promise promise) {
+        System.out.println("in UnityNativeModule.isReady, promise: " + promise);
         promise.resolve(UnityUtils.isUnityReady());
     }
 
     @ReactMethod
     public void createUnity(final Promise promise) {
-        UnityUtils.createPlayer(getCurrentActivity(), new UnityUtils.CreateCallback() {
+         System.out.println("in UnityNativeModule.createUnity, promise: " + promise);
+       UnityUtils.createPlayer(getCurrentActivity(), new UnityUtils.CreateCallback() {
             @Override
             public void onReady() {
                 promise.resolve(true);
@@ -46,11 +48,13 @@ public class UnityNativeModule extends ReactContextBaseJavaModule implements Uni
 
     @ReactMethod
     public void pause() {
+         System.out.println("in UnityNativeModule.pause");
         UnityUtils.pause();
     }
 
     @ReactMethod
     public void resume() {
+         System.out.println("in UnityNativeModule.resume");
         UnityUtils.resume();
     }
 
