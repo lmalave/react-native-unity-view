@@ -84,9 +84,9 @@ public class UnityUtils {
             public void run() {
            System.out.println("UUUUUUUU in UnityUtils.createPlayer, in runOnUiThread Runnable.run()");
               System.out.println("UUUUUUUU in UnityUtils.createPlayer, in runOnUiThread Runnable.run(), about to start MainUnityActivity");
-              loadUnity(activity);
-               System.out.println("UUUUUUUU in UnityUtils.createPlayer, in runOnUiThread Runnable.run(), started  MainUnityActivity ");
-           /* activity.getWindow().setFormat(PixelFormat.RGBA_8888);
+            //  loadUnity(activity);
+             //  System.out.println("UUUUUUUU in UnityUtils.createPlayer, in runOnUiThread Runnable.run(), started  MainUnityActivity ");
+            activity.getWindow().setFormat(PixelFormat.RGBA_8888);
                 int flag = activity.getWindow().getAttributes().flags;
                 boolean fullScreen = false;
                 if((flag & WindowManager.LayoutParams.FLAG_FULLSCREEN) == WindowManager.LayoutParams.FLAG_FULLSCREEN) {
@@ -96,13 +96,13 @@ public class UnityUtils {
               System.out.println("UUUUUUUU in UnityUtils.createPlayer, in runOnUiThread Runnable.run(), about to create new UnityPlayer");
                unityPlayer = new UnityPlayer(activity);
               System.out.println("UUUUUUUU in UnityUtils.createPlayer, in runOnUiThread Runnable.run(), created  new UnityPlayer: " + unityPlayer);
-*/
+
                 try {
                     // wait a moument. fix unity cannot start when startup.
                     Thread.sleep( 1000 );
                 } catch (Exception e) {
                 }
-/*
+
                 // start unity
                 addUnityViewToBackground();
                 unityPlayer.windowFocusChanged(true);
@@ -114,7 +114,7 @@ public class UnityUtils {
                     activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
                     activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
                 }
-                */
+                
                 //  _isUnityReady = true;
                callback.onReady();
             }

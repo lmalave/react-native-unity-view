@@ -41,20 +41,22 @@ public class MainUnityActivity extends OverrideUnityActivity {
     @Override
     protected void showMainActivity() {
       System.out.println("UUUUUUUUU in MainUnityActivity.showMainActivity");
-      Activity mainActivity = UnityUtils.getMainActivity();
+     Activity mainActivity = UnityUtils.getMainActivity();
       System.out.println("UUUUUUUUU in MainUnityActivity.showMainActivity, mainActivity" + mainActivity);
-      //if (mainActivity != null) {
-        // Class mainActivityClass = mainActivity.getClass();
-        Class mainActivityClass = com.marathonapp.MainActivity.class;
+      if (mainActivity != null) {
+        Class mainActivityClass = mainActivity.getClass();
+        //Class mainActivityClass = com.marathonapp.MainActivity.class;
       System.out.println("UUUUUUUUU in MainUnityActivity.showMainActivity, mainActivityClass" + mainActivityClass);
         Intent intent = new Intent(this, mainActivityClass);
       System.out.println("UUUUUUUUU in MainUnityActivity.showMainActivity, intent" + intent);
-        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         // intent.putExtra("setColor", setToColor);
       System.out.println("UUUUUUUUU in MainUnityActivity.showMainActivity, about to call startActivity on intent: " + intent);
         startActivity(intent);
       System.out.println("UUUUUUUUU in MainUnityActivity.showMainActivity, about to called startActivity: " + intent);
-      //}
+      }
+      String closeString = "{\"id\": 1,\"seq\":\"1\",\"name\":\"Close\"}";
+      UnityUtils.onUnityMessage(closeString);
     }
 
     @Override public void onUnityPlayerUnloaded() {
@@ -64,8 +66,8 @@ public class MainUnityActivity extends OverrideUnityActivity {
 
     @Override public void onUnityPlayerQuitted() {
       System.out.println("UUUUUUUUU In MainUnityActivity.onUnityPlayerQuitted");
-      showMainActivity();
-      finish();
+      // showMainActivity();
+      // finish();
     }
 
     public void addControlsToUnityFrame() {
